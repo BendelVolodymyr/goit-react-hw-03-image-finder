@@ -10,6 +10,7 @@ class SearchBar extends Component {
   };
   handleSubmit = event => {
     event.preventDefault();
+    if (!this.state.searchName.trim()) return alert('Can not be empty');
     this.props.onSubmit(this.state.searchName);
     this.setState({ searchName: '' });
   };

@@ -6,6 +6,19 @@ import SearchBar from './SearchBar/SearchBar';
 import React, { Component } from 'react';
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notifyOptions = {
+  position: 'top-left',
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: 'colored',
+};
 
 export class App extends Component {
   state = {
@@ -69,9 +82,10 @@ export class App extends Component {
       const { pages } = this.state;
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
-        isVisible: pages < Math.floor(totalHits / hits.length),
+        isVisible: pages < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
+      console.log(`Error: ${error}`);
     } finally {
       this.setState({ isLoading: false });
     }
@@ -93,18 +107,7 @@ export class App extends Component {
         {showModal && (
           <Modal onClose={this.ToggleModal} src={modalSrc} alt={modalAlt} />
         )}
-        <ImageGallery>
-          {images.length > 0 &&
-            images.map(({ id, webformatURL, tags, largeImageURL }) => (
-              <ImageGalleryItem
-                key={id}
-                src={webformatURL}
-                alt={tags}
-                modal={largeImageURL}
-                onClick={this.ToggleModal}
-              />
-            ))}
-        </ImageGallery>
+        <ImageGallery images={images} onClick={this.ToggleModal} />
         {isLoading && <Loader isLoading={isLoading} />}
         {isVisible && <Button onClick={this.onHandleLoadMore} />}
         {isEmpty && (
