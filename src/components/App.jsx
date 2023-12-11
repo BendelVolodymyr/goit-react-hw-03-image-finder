@@ -1,24 +1,10 @@
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import { getImages } from './SearchAPI/SearchAPI';
 import SearchBar from './SearchBar/SearchBar';
 import React, { Component } from 'react';
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-const notifyOptions = {
-  position: 'top-left',
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: 'colored',
-};
 
 export class App extends Component {
   state = {
