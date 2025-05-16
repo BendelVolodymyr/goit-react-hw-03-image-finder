@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-const modalRoot = document.querySelector('#modal__root');
+const modalRoot = document.querySelector('#modal__root')!;
 
-export default class Modal extends Component {
+interface ModalProps {
+  onClose: (e?: any) => void;
+  src: string;
+  alt: string;
+}
+
+export default class Modal extends Component<ModalProps, {}> {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -12,13 +18,13 @@ export default class Modal extends Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = e => {
+  handleKeyDown = (e: KeyboardEvent) => {
     if (e.code === 'Escape') {
       return this.props.onClose();
     }
   };
 
-  handleDropClick = e => {
+  handleDropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.currentTarget === e.target) {
       this.props.onClose();
     }

@@ -1,6 +1,18 @@
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
-const ImageGallery = ({ images, onClick }) => {
+type Images = {
+  id: string;
+  webformatURL: string;
+  tags: string;
+  largeImageURL: string;
+};
+
+interface ImageGalleryProps {
+  images: Images[];
+  onClick: (e?: React.MouseEvent<HTMLImageElement | HTMLDivElement>) => void;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onClick }) => {
   if (images.length > 0) {
     const resultImages = images.map(
       ({ id, webformatURL, tags, largeImageURL }) => (
@@ -15,6 +27,7 @@ const ImageGallery = ({ images, onClick }) => {
     );
     return <ul className="gallery">{resultImages}</ul>;
   }
+  return null;
 };
 
 export default ImageGallery;
